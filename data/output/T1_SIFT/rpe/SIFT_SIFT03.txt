@@ -1,0 +1,14 @@
+RPE w.r.t. translation part (m)
+for delta = 1 (frames) using consecutive pairs
+(not aligned)
+
+       max	0.099870
+      mean	0.013477
+    median	0.010964
+       min	0.000215
+      rmse	0.017757
+       sse	0.252263
+       std	0.011563
+
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/src/../data/output/T14_SIFT_SIFT/rpe/SIFT_SIFT03_raw
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/src/../data/output/T14_SIFT_SIFT/rpe/SIFT_SIFT03_map

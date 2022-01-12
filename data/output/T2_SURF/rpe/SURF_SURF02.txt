@@ -1,0 +1,14 @@
+RPE w.r.t. translation part (m)
+for delta = 1 (frames) using consecutive pairs
+(not aligned)
+
+       max	0.230817
+      mean	0.019516
+    median	0.016388
+       min	0.000162
+      rmse	0.024375
+       sse	2.768596
+       std	0.014603
+
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/src/../data/output/T21_SURF_SURF/rpe/SURF_SURF02_raw
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/src/../data/output/T21_SURF_SURF/rpe/SURF_SURF02_map

@@ -1,0 +1,14 @@
+RPE w.r.t. translation part (m)
+for delta = 1 (frames) using consecutive pairs
+(not aligned)
+
+       max	0.717460
+      mean	0.020221
+    median	0.016478
+       min	0.000178
+      rmse	0.032540
+       sse	1.164727
+       std	0.025495
+
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/main/../data/output/T5_ORB/rpe/ORB06_raw
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/main/../data/output/T5_ORB/rpe/ORB06_map

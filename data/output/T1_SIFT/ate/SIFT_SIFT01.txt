@@ -1,0 +1,13 @@
+APE w.r.t. translation part (m)
+(not aligned)
+
+       max	78.043367
+      mean	38.844632
+    median	49.616065
+       min	0.000000
+      rmse	49.036780
+       sse	2647470.928292
+       std	29.928252
+
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/src/../data/output/T14_SIFT_SIFT/ate/SIFT_SIFT01_raw
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/src/../data/output/T14_SIFT_SIFT/ate/SIFT_SIFT01_map

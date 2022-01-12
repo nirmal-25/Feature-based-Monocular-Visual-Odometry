@@ -1,0 +1,13 @@
+APE w.r.t. translation part (m)
+(not aligned)
+
+       max	12.967400
+      mean	4.244921
+    median	2.926187
+       min	0.000000
+      rmse	5.758054
+       sse	36503.858017
+       std	3.890480
+
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/src/../data/output/T21_SURF_SURF/ate/SURF_SURF06_raw
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/src/../data/output/T21_SURF_SURF/ate/SURF_SURF06_map

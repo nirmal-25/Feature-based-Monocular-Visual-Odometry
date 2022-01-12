@@ -1,0 +1,13 @@
+APE w.r.t. translation part (m)
+(not aligned)
+
+       max	40.869781
+      mean	11.696900
+    median	4.668597
+       min	0.000000
+      rmse	18.055974
+       sse	358946.032996
+       std	13.755025
+
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/src/../data/output/T35_BRISK_BRISK/ate/BRISK_BRISK07_raw
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/src/../data/output/T35_BRISK_BRISK/ate/BRISK_BRISK07_map

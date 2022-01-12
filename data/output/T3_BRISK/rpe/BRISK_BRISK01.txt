@@ -1,0 +1,14 @@
+RPE w.r.t. translation part (m)
+for delta = 1 (frames) using consecutive pairs
+(not aligned)
+
+       max	5.320618
+      mean	0.152480
+    median	0.038883
+       min	0.000778
+      rmse	0.665646
+       sse	487.392683
+       std	0.647946
+
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/src/../data/output/T35_BRISK_BRISK/rpe/BRISK_BRISK01_raw
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/src/../data/output/T35_BRISK_BRISK/rpe/BRISK_BRISK01_map

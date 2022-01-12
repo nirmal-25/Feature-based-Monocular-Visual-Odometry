@@ -1,0 +1,14 @@
+RPE w.r.t. translation part (m)
+for delta = 1 (frames) using consecutive pairs
+(not aligned)
+
+       max	0.056359
+      mean	0.016301
+    median	0.014795
+       min	0.000785
+      rmse	0.018644
+       sse	0.093847
+       std	0.009047
+
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/main/../data/output/T4_FAST/rpe/FAST04_raw
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/main/../data/output/T4_FAST/rpe/FAST04_map

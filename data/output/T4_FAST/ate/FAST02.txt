@@ -1,0 +1,13 @@
+APE w.r.t. translation part (m)
+(not aligned)
+
+       max	17.395858
+      mean	8.402190
+    median	8.375125
+       min	0.000000
+      rmse	9.549504
+       sse	425050.673560
+       std	4.538307
+
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/main/../data/output/T4_FAST/ate/FAST02_raw
+Plot saved to /home/dharneeshkar/Desktop/VO_benchmark/main/../data/output/T4_FAST/ate/FAST02_map
