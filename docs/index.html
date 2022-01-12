@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Computer Vision Course Project
+    | ECE, Virginia Tech | Fall 2021: ECE 4554/5554</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Le styles -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 60px;
+      /* 60px to make the container go all the way to the bottom of the topbar */
+      /* background-color: azure;  */
+    }
+
+    .vis {
+      color: #3366CC;
+    }
+
+    .data {
+      color: #FF9900;
+    }
+
+    hr {
+      display: block;
+      margin-top: 2em;
+      margin-bottom: 2em;
+      margin-left: auto;
+      margin-right: auto;
+      border-style: inset;
+      border-width: 1px;
+    }
+
+    .column {
+      float: left;
+      width: 40%;
+      margin-left: 80px;
+
+    }
+
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+  </style>
+
+  <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+
+<body>
+  <div class="container">
+    <div class="page-header">
+
+      <!-- Title and Name -->
+      <h1>Feature-based Monocular Visual Odometry</h1>
+      <span style="font-size: 20px; line-height: 1.5em;"><strong>Nirmal Amirthalingam, Dharneeshkar
+          Jayaprakash</strong></span><br>
+      <span style="font-size: 18px; line-height: 1.5em;">Fall 2021 ECE 4554/5554 Computer Vision: Course
+        Project</span><br>
+      <span style="font-size: 18px; line-height: 1.5em;">Virginia Tech</span>
+      <hr>
+
+      <!-- Goal -->
+      <h2>Abstract</h2>
+      <p style="text-align: justify">
+        Monocular visual odometry is a technique of incrementally estimating camera poses (translation and rotation) and
+        local 3D maps, with the help of a single camera and no additional sensor. It is in fact a major component of
+        bigger challenges in robotics such as Simultaneous Localization and Mapping (SLAM). In this project, monocular
+        visual odometry is performed using image features namely, SIFT, BRISK, SURF, FAST, and ORB. The KITTI benchmark
+        dataset is used for analyzing the performance of the image features. Our results indicate that a SIFT-based
+        model performs the best compared to other feature-based techniques.
+
+
+      </p>
+      <div style="text-align: center;">
+        <figure>
+          <img alt="" src="1.gif">
+          <figcaption>Figure.1 Sample video output for <a href="http://www.cvlibs.net/datasets/kitti/eval_odometry.php"
+            target="_blank">KITTI dataset</a> </figcaption>
+        </figure>
+
+      </div>
+      <br>
+      <hr>
+
+      <h2>Introduction</h2>
+      <p style="text-align: justify">
+        Localization problems can be effectively solved with good GPS systems. But in indoor mapping and environments
+        with poor connectivity, it's challenging for a GPS-based system to map and therefore visual odometry technique
+        is used for such cases. Since then, visual odometry has become more relevant than ever. In recent times, visual
+        odometry has been employed in a wide range of applications such as autonomous aerial and underwater vehicles,
+        mobile robotics, self-driving/parking cars, augmented reality and wearable computing. Visual odometry can be
+        divided into two categories: stereo vision and monocular vision. In this project, monocular vision-based visual
+        odometry is discussed. When compared to stereo, the monocular approach is well suited for applications that
+        demand lightweight and low-cost solutions.
+      </p>
+      <p style="text-align: justify">
+        There are two methods in visual odometry - feature-based methods and direct methods. Feature-based approaches
+        use geometric analysis of sparse key-point correspondences to estimate the multi-view relationships between
+        input video frames. Some of the advantages of using feature-based methods over direct methods are robustness in
+        dynamic scenes and excellent accuracy. In this project, a feature-based visual odometry setup is implemented. We
+        have also experimented with well-established feature detectors and descriptors that help in matching between the
+        images.
+
+      </p>
+      <p style="text-align: justify">
+        Visual odometry is one of the areas in which deep learning has not yet surpassed the traditional computer vision
+        techniques. Visual odometry using traditional computer vision is a low-cost, computationally efficient approach
+        when compared to deep learning. Also, traditional computer vision techniques have the capability to extract rich
+        visual data and feature descriptors from images.
+      </p>
+
+
+      <hr>
+
+      <!-- Approach -->
+      <h2>Approach</h2>
+      <p style="text-align: justify">
+        We have worked on a Python implementation for our visual odometry system, using traditional CV methods, that
+        extract a sparse set of key points from monocular images. For the front-end of our system, feature descriptors
+        such as ORB, BRISK, SURF, FAST, and SIFT to extract key points from sequential image frames. Firstly, a select number
+        of features are chosen for tracking and given as input to the feature detection module. Then by using the
+        five-point motion estimation algorithm the relative pose among three consecutive frames is determined. Further,
+        the model estimation is made robust by using RANSAC as it refines the matched features.
+
+      </p>
+
+      <!-- Main Illustrative Figure -->
+      <div style="text-align: center;">
+        <figure>
+          <img style="height: 200px;" alt="" src="VO.png">
+          <figcaption>Figure 2. Visual Odometry pipeline</figcaption>
+        </figure>
+
+      </div>
+      <br>
+
+      <p style="text-align: justify">
+        For the feature detection module, we have experimented with the following techniques - SIFT, SURF, BRISK, FAST,
+        and ORB. A detailed comparison of the different VO models is provided as result with metrics that help
+        understand the error in trajectory better. Here, the local features refer to a combination of detector and
+        descriptor. A detector is an algorithm that is used to extract key points or interest points based on some
+        criteria, whereas a descriptor can be defined as a vector of values that describes the image patch surrounding a
+        key point. For example, SIFT serves the purpose of both detection and description, while FAST is considered to
+        be a detector and not a descriptor. We have limited the choice of detector-descriptor modules to be of the same
+        type since it is beyond the scope of this project.
+
+      </p>
+      <p style="text-align: justify">
+        We make use of a publicly available repository called ‘pySLAM v2,’ which provides the tools required for
+        implementing a complete visual odometry pipeline in Python 3. For evaluating these models, an open-source
+        evaluation tool named ‘evo’ was used. The VO output had to be modified according to the format that was required
+        for the evaluation pipeline and the complete framework including pySLAM has been customized for the task at
+        hand. Besides presenting a brief comparison of popular feature extractors, we hope to have provided a simplified
+        implementation for monocular visual odometry that allows for testing various feature detectors with ease.
+      </p>
+      <!-- Results -->
+      <hr>
+
+
+
+
+
+      <!-- Results -->
+      <h2>Experiments and Results</h2>
+      <h3>Dataset</h3>
+      <p style="text-align: justify">
+        We have used the KITTI benchmark dataset (Visual Odometry / SLAM Evaluation 2012) for our experiments. Since the
+        dataset consists of stereo images, we take the grayscale images from the left camera. The KITTI dataset is
+        chosen since it depicts many complex street scenarios like vehicles in motion, bicyclists and moving
+        pedestrians. For each image frame, the ground truth values consist of 12 parameters in this format - [r11, r12,
+        r13, tx, r21, r22, r23, ty, r31, r32, r33, tz]. Basically, it’s a combination of rotation and translation matrix
+        in a flattened-out format. For evaluating our model, we calculate rotational and translational errors by
+        comparing the ground truth with the output from the visual odometry pipeline.
+
+      </p>
+      <br>
+      <div style="text-align: center;">
+        <img style="height: 200px; width:800px;" alt="" src="kitti_01.PNG">
+      </div>
+      <br>
+      <div style="text-align: center;">
+        <figure>
+          <img style="height: 200px; width:800px" alt="" src="kitti_02.PNG">
+          <figcaption>Figure 3. Sample images from <a href="http://www.cvlibs.net/datasets/kitti/eval_odometry.php"
+              target="_blank">KITTI dataset</a> (grayscale)</figcaption>
+        </figure>
+
+      </div>
+      <br>
+
+      <h3>Absolute Trajectory Error (ATE)</h3>
+      <p style="text-align: justify">
+        The Absolute Trajectory Error is a measure of the absolute distances between ground truth and estimated
+        trajectory. This error metric helps to investigate the global consistency of the Visual Odometry trajectory. The
+        ATE is defined as,
+      </p>
+      <div style="text-align: center;">
+        <img alt="" src="ATE_formula4.jpg">
+      </div>
+
+      <p style="text-align: justify">
+        Where <i>E</i> is the error matrix, defined as,
+        <!-- E<sub>i</sub> = Q<sub>i</sub><sup>-1</sup> S P<sub>i</sub> -->
+        <img alt="" src="error_formula.jpg">
+      </p>
+      <p style="text-align: justify">
+        In the above equations, <i>n</i> denotes the number of image frames in the sequence. Here, <i>S</i> is the rigid
+        body
+        transformation that maps <i>P</i>, the predicted trajectory, to the ground truth trajectory <i>Q</i>.
+
+      </p>
+      <p style="text-align: justify">
+
+        Figure 4 shows the ATE of SIFT-SIFT in KITTI sequence 05. The mean, median and RMSE are plotted for the
+        corresponding ATE trajectory.
+      </p>
+      <div style="text-align: center;">
+        <figure>
+          <img alt="" src="APE.png">
+          <figcaption>Figure 4. Average Trajectory Error (ATE) of SIFT-SIFT </figcaption>
+        </figure>
+
+      </div>
+      <h3>Relative Pose Error (RPE)</h3>
+      <p style="text-align: justify">
+        Relative Pose Error is one of the important metrics used for the evaluation of Visual Odometry results. The RPE
+        assesses the trajectory’s local accuracy over a fixed time interval. As a result, the relative pose error
+        correlates to the trajectory's drift. The RPE is defined as,
+      </p>
+      <div style="text-align: center;">
+        <img alt="" src="RPE_formula4.jpg">
+      </div>
+      <br>
+
+      <p style="text-align: justify">
+        The RPE of SIFT-SIFT in KITTI sequence 05 is shown in Figure 5. The sudden spikes in the graph denoted the
+        outliers. In other words, larger standard deviation results in more outliers. For the sake of conciseness of the
+        report, we do not present the ATE and RPE statistics for all KITTI sequences in the report. These graphs can be
+        found in the code repository submitted along with the report.
+      </p>
+      <div style="text-align: center;">
+        <figure>
+          <img alt="" src="RPE.png">
+          <figcaption>Figure 5. Relative Pose Error (RPE) of SIFT-SIFT </figcaption>
+        </figure>
+      </div>
+      <br>
+      <div style="text-align: center;">
+        <figure>
+          <img alt="" src="Table1.png">
+          <figcaption>Table 1. Average Trajectory Error (ATE) results for 10 KITTI sequences </figcaption>
+        </figure>
+
+      </div>
+      <br>
+      <div style="text-align: center;">
+        <figure>
+          <img alt="" src="Table2.png">
+          <figcaption>Table 2. Relative Pose Error (RPE) results for 10 KITTI sequences </figcaption>
+        </figure>
+
+      </div>
+      <br>
+
+      <p style="text-align: justify">
+        The ATE and RPE results for 10 KITTI sequences (00-09) are tabulated as shown in Tables 1 and 2. As mentioned
+        earlier, we experiment with 5 detector-descriptor models namely, SIFT-SIFT, SURF-SURF, BRISK-BRISK, FAST-NONE,
+        and ORB-ORB. To get an overview of the model’s performance, the average RMSE value is calculated in the last
+        column of the table.
+      </p>
+      <p style="text-align: justify">
+        The results for ATE indicate that the SIFT model performs the best, followed by BRISK, SURF, ORB, and FAST. This
+        is similar to the trend observed in RPE values, with the exception that FAST has a slightly better performance
+        when compared to ORB. The results obtained re-affirm the scale-invariant nature of SIFT and its superior
+        performance over other feature detection algorithms when dealing with affine transformations and viewpoint
+        changes in the KITTI image sequences. Though recently proposed techniques such as FAST and ORB are faster and
+        computationally less expensive, we notice that there is a huge decline in accuracy when compared to SIFT and
+        SURF in this case.
+
+
+      </p>
+
+
+
+      <br><br>
+
+      <h2>Qualitative Results</h2>
+      <br>
+
+      <div style="text-align: center;">
+        <img alt="" src="5.gif">
+        <figcaption>Figure 6. Video output for KITTI sequence 07 </figcaption>
+      </div>
+      <br>
+
+      <div class="row">
+        <figure>
+          <div class="column">
+            <img style="height:386px; width:636px" alt="" src="3.gif">
+            <figcaption style="padding-left: 120px;"> Figure 7. Trajectory visualization in 3D </figcaption>
+          </div>
+          <div class="column">
+            <img style="height:386px; width:636px; " alt="" src="4.gif">
+            <figcaption style="padding-left: 100px;"> Figure 8. Trajectory visualization in 3D </figcaption>
+          </div>
+
+        </figure>
+
+      </div>
+
+
+      <hr>
+      <h2>Conclusion</h2>
+      <p style="text-align: justify">
+        In this project, monocular visual odometry was implemented using five image features namely, SIFT, BRISK, SURF,
+        ORB, FAST. All model outputs are evaluated using ATE and RPE error metrics. From the experiment, it is found out
+        that SIFT has the best performance followed by BRISK and SURF. The ORB and FAST-based visual odometry model
+        performances were poor when compared to other algorithms.
+      </p>
+      <p style="text-align: justify">
+        In the future, a comparison based on runtime can be performed. This can help in choosing the right algorithm
+        based on the computational power of the system. Additionally, visual odometry can be implemented using deep
+        learning techniques. Furthermore, the experiment can be run using different datasets in order to generalize the
+        performance of the algorithms.
+      </p>
+      <hr>
+
+      <!-- References -->
+      <h2>References</h2>
+      <p style="text-align: justify">
+        [1] Walsh, Joseph & O' Mahony, Niall & Campbell, Sean & Carvalho, Anderson & Krpalkova, Lenka &
+        Velasco-Hernandez, Gustavo & Harapanahalli, Suman & Riordan, Daniel. (2019). Deep Learning vs. Traditional
+        Computer Vision. 10.1007/978-3-030-17795-9_10.
+      </p>
+      <p style="text-align: justify">
+        [2] D. Scaramuzza and F. Fraundorfer, “Visual odometry [tutorial],” IEEE robotics & automation magazine, vol.
+        18, no. 4, pp. 80–92, 2011.
+
+      </p>
+      <p style="text-align: justify">
+        [3] H. Chien, C. Chuang, C. Chen and R. Klette, "When to use what feature? SIFT, SURF, ORB, or A-KAZE features
+        for monocular visual odometry," 2016 International Conference on Image and Vision Computing New Zealand (IVCNZ),
+        2016, pp. 1-6, doi: 10.1109/IVCNZ.2016.7804434.
+      </p>
+      <p style="text-align: justify">
+        [4] J. Engel, V. Usenko, and D. Cremers. A photometrically calibrated benchmark for monocular visual odometry.
+        In arXiv preprint arXiv, 2016.
+      </p>
+      <p style="text-align: justify">
+        [5] Merzlyakov, Alexey, and Steve Macenski. “A Comparison of Modern General-Purpose Visual Slam Approaches.”
+        ArXiv.org, 5 Aug. 2021, https://arxiv.org/abs/2107.07589.
+      </p>
+
+      <p style="text-align: justify">
+        [6] L. Freda and M. Pierenkemper, “pySLAM v2,” https://github.com/luigifreda/pyslam, 2019.
+      </p>
+      <p style="text-align: justify">
+        [7] M. Grupp, “evo: Python package for the evaluation of odometry and slam.”
+        https://github.com/MichaelGrupp/evo, 2017.
+
+      </p>
+      <p style="text-align: justify">
+        [8] A. Geiger, P. Lenz, and R. Urtasun, “Are we ready for autonomous driving? the kitti vision benchmark suite,”
+        in Conference on Computer Vision and Pattern Recognition (CVPR), 2012.
+      </p>
+      <br><br>
+      <hr>
+      <footer>
+        <p>© Nirmal Amirthalingam, Dharneeshkar Jayaprakash</p>
+      </footer>
+    </div>
+  </div>
+
+  <br><br>
+
+</body>
+
+</html>
